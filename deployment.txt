@@ -1,0 +1,3 @@
+Frontend URL: https://felicity-platform.vercel.app
+Backend API URL: https://felicity-backend.render.com
+Database: MongoDB Atlas (via MONGO_URI)
