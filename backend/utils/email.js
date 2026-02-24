@@ -7,10 +7,10 @@ const createTransport = () => {
   const port = parseInt(process.env.SMTP_PORT || '587');
 
   if (host && user) {
-    return nodemailer.createTransport({
+    const config = {
       host,
       port,
-      secure: port === 465, // true for 465, false for others
+      secure: port === 465,
       auth: {
         user,
         pass: process.env.SMTP_PASS,
@@ -18,7 +18,16 @@ const createTransport = () => {
       tls: {
         rejectUnauthorized: false
       }
-    });
+    };
+
+    // Special handling for Gmail to be more robust on cloud platforms
+    if (host.includes('gmail.com')) {
+      config.service = 'gmail';
+      // When using 'service', nodemailer ignores host/port, which often works better
+      // but we keep them in config just in case.
+    }
+
+    return nodemailer.createTransport(config);
   }
   // Fallback: log to console
   return {
