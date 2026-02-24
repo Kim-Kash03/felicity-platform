@@ -32,7 +32,9 @@ const TeamChatRoom = () => {
 
     useEffect(() => {
         // Initialize socket
-        const socketInstance = io(import.meta.env.VITE_API_URL?.replace(/\/api$/, '') || 'http://localhost:5000', {
+        const apiUrl = import.meta.env.VITE_API_URL || '';
+        const socketUrl = apiUrl.replace(/\/api$/, '') || window.location.origin;
+        const socketInstance = io(socketUrl, {
             withCredentials: true
         });
 

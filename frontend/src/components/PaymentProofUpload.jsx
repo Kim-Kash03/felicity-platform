@@ -41,7 +41,8 @@ const PaymentProofUpload = ({ registrationId, onSuccess }) => {
             });
 
             // 2. Submit the URL to the registration
-            const baseUrl = axios.defaults.baseURL ? axios.defaults.baseURL.replace(/\/api\/?$/, '') : 'http://localhost:5000';
+            const apiUrl = import.meta.env.VITE_API_URL || '';
+            const baseUrl = apiUrl.replace(/\/api\/?$/, '') || window.location.origin;
             const fullUrl = `${baseUrl}${uploadRes.data.url}`;
 
             await axios.put(`/registrations/${registrationId}/payment-proof`, {
