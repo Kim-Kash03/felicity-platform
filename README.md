@@ -17,15 +17,15 @@ The Platform is a comprehensive event management system designed for campus club
 
 This project is configured for deployment on modern cloud platforms:
 
-- **Frontend**: Deploy to **Vercel** or **Netlify**.
-  - Set `VITE_API_URL` environment variable to your Backend API URL (e.g., `https://api.yourdomain.com/api`).
-- **Backend**: Deploy to **Render**, **Railway**, or **Fly.io**.
-  - Set `MONGO_URI` to your MongoDB Atlas connection string.
-  - Set `CLIENT_URL` to your production Frontend URL.
+- **Frontend**: Deploy to **Vercel**.
+  - Set `VITE_API_URL` environment variable to my Backend API URL.
+- **Backend**: Deploy to **Render**
+  - Set `MONGO_URI` to my MongoDB Atlas connection string.
+  - Set `CLIENT_URL` to my production Frontend URL.
   - Configure SMTP variables in `.env` for production email delivery.
 - **Database**: Use **MongoDB Atlas** for a managed database instance.
 
-*Refer to `deployment.txt` in the root directory for your specific production URLs.*
+*Refer to `deployment.txt` in the root directory for specific production URLs (Frontend hosted on Vercel).*
 
 - **React Icons**: Versatile icon set for efficient UI.
 - **React Hot Toast**: Responsive and customizable toast notifications.
@@ -81,7 +81,7 @@ This project is configured for deployment on modern cloud platforms:
 
 ### Tier B: Real-time & Communication Features
 - **Organizer Password Reset Workflow**
-    - **Design Choice**: Adopted a "Human-in-the-loop" administration policy. Unlike student accounts, club (organizer) accounts require admin verification for resets to prevent unauthorized access to event management controls.
+    - **Design Choice**: Adopted a manual administration policy. Unlike student accounts, club (organizer) accounts require admin verification for resets to prevent unauthorized access to event management controls.
     - **Technical Decision**: The system generates a secure, random password only *after* admin approval, requiring the admin to be the trusted distributor of new credentials.
 - **Real-time Team Chat**
     - **Design Choice**: Restricted chat rooms to 'complete' teams to foster a focused and secure collaborative environment once the team's commitment is finalized.
@@ -147,4 +147,4 @@ The application should now be running at `http://localhost:5173`.
 ---
 
 ##  Design Philosophy
-Felicity follows a modern, dynamic design language emphasizing clarity and user engagement. The custom "Pink Theme" uses a curated palette of HSL-based colors, subtle micro-animations, and glassmorphism elements to provide a premium feel throughout the platform.
+Felicity follows a modern, dynamic design language emphasizing clarity and user engagement. The custom "Pink Theme" uses a curated palette of HSL-based colors, subtle micro-animations, and glassmorphism elements to provide a feel throughout the platform.
