@@ -7,27 +7,20 @@ const createTransport = () => {
   const port = parseInt(process.env.SMTP_PORT || '587');
 
   if (host && user) {
-    const config = {
+    console.log(`Creating SMTP transport for ${host}:${port} (Forcing IPv4)`);
+    return nodemailer.createTransport({
       host,
       port,
-      secure: port === 465,
+      secure: port === 465, // true for 465
       auth: {
         user,
         pass: process.env.SMTP_PASS,
       },
       tls: {
         rejectUnauthorized: false
-      }
-    };
-
-    // Special handling for Gmail to be more robust on cloud platforms
-    if (host.includes('gmail.com')) {
-      config.service = 'gmail';
-      // When using 'service', nodemailer ignores host/port, which often works better
-      // but we keep them in config just in case.
-    }
-
-    return nodemailer.createTransport(config);
+      },
+      family: 4 // CRITICAL: Forces IPv4 to avoid ENETUNREACH on IPv6-unfriendly cloud networks
+    });
   }
   // Fallback: log to console
   return {
