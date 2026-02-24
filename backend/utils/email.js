@@ -15,6 +15,9 @@ const createTransport = () => {
         user,
         pass: process.env.SMTP_PASS,
       },
+      tls: {
+        rejectUnauthorized: false
+      }
     });
   }
   // Fallback: log to console

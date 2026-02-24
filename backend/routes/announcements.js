@@ -21,16 +21,26 @@ router.post('/', protect, authorize('organizer'), async (req, res) => {
 
         // Discord notification logic
         if (req.user.discordWebhook) {
+            console.log(`Attempting Discord notification for ${req.user.organizerName}...`);
             try {
                 const { default: fetch } = await import('node-fetch');
-                await fetch(req.user.discordWebhook, {
+                const response = await fetch(req.user.discordWebhook, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        content: ` @everyone **Announcement from ${req.user.organizerName}**\n\n${content}`,
+                        content: `📢 **New Announcement from ${req.user.organizerName}**\n\n${content}`,
                     }),
                 });
-            } catch (_) { }
+                if (response.ok) {
+                    console.log('Discord notification sent successfully!');
+                } else {
+                    console.error('Discord notification failed with status:', response.status);
+                }
+            } catch (discordErr) {
+                console.error('Discord notification error:', discordErr.message);
+            }
+        } else {
+            console.log('No Discord webhook configured for this organizer.');
         }
 
         res.status(201).json(announcement);
